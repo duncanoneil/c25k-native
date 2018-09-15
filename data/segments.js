@@ -3,13 +3,6 @@ const COOLDOWN = 300;
 
 export const SEGMENTS = [
   {
-    week: 0,
-    day: 0,
-    intervals: [
-        10, 10, 10, 10, 10, 10, 10, 10
-    ]
-  },
-  {
     week: 1,
     day: 1,
     intervals: [

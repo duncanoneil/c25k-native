@@ -8,7 +8,9 @@ import PickerModal from './components/PickerModal';
 import {Button, StyleSheet, Text, View} from 'react-native';
 
 import {SEGMENTS} from './data/segments';
-import ding from './data/265012__sethlind__toaster-oven-ding.mp3';
+import speedUp from './data/speed-up.mp3';
+import slowDown from './data/slow-down.mp3';
+import sessionComplete from './data/session-complete.mp3';
 
 import styles from './style'
 
@@ -34,7 +36,17 @@ export default class App extends React.Component {
 
     updateInterval = (newInterval) => {
         this.setState({ interval: newInterval });
-        this._playSound(ding);
+
+        if (
+            newInterval ===
+            SEGMENTS[this.state.segment].intervals.length - 1
+        ) {
+            this._playSound(sessionComplete);
+        } else if (newInterval % 2 === 1) {
+            this._playSound(speedUp);
+        } else {
+            this._playSound(slowDown);
+        }
     };
 
     showModal = () => {
@@ -137,23 +149,10 @@ export default class App extends React.Component {
                 </View>
             </View>
         );
-
-
-
-        //this._playSound();
-        // return (
-        //     <View style={styles.container}>
-        //         <Text>Week {segment.week}, Day {segment.day}</Text>
-        //         <Text>Open up App.js to start working on your app!</Text>
-        //         <Text>Changes you make will automatically reload.</Text>
-        //         <Text>Shake your phone to open the developer menu.</Text>
-        //     </View>
-        // );
     }
 
     async _playSound(theSound) {
         const soundObject = new Expo.Audio.Sound();
-
         try {
             await soundObject.loadAsync(theSound);
             await soundObject.playAsync();
