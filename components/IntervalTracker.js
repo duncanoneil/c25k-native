@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {StyleSheet, Text, View} from 'react-native';
+import styles from "../style";
 
 // import './IntervalTracker.css';
 
@@ -9,10 +10,10 @@ const IntervalTracker = ({current, total}) => {
     const displayCurrent = current > total ? current - 1 : current;
 
     return (
-        <View>
-            <Text className="current-interval">{displayCurrent}</Text>
-            <Text>/</Text>
-            <Text className="total-interval">{total}</Text>
+        <View style={styles.intervalTracker}>
+            <Text style={styles.intervalTrackerText}>{displayCurrent}</Text>
+            <Text style={styles.intervalTrackerText}>/</Text>
+            <Text style={styles.intervalTrackerText}>{total}</Text>
         </View>
     );
 };

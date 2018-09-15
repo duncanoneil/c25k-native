@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Button, StyleSheet, Text, View} from 'react-native';
+import styles from "../style";
 
 // import './PickerModal.css';
 
@@ -11,28 +12,26 @@ const PickerModal = ({segments, currentSegment, hideModal, updateSegment}) => {
     }
 
     return (
-        <View>
-            <View className="overlay"/>
-            <View className="modal-container">
-                <View className="modal">
-                    <View className="modal-View">
-                        <Text>Pick a Day</Text>
+        <View style={styles.picker}>
+            <View style={styles.pickerHeader}>
+                <Text style={styles.pickerHeaderText}>Pick a Day</Text>
+                <View style={styles.pickerHeaderClose}>
+                    <Button title="x" color="darkgray" onPress={hideModal} />
+                </View>
+            </View>
 
-                        <Button title="x" className="close-Button" onPress={hideModal} />
-                    </View>
-
-                    <View className="modal-body">
-                        {segments.map((segment, index) => (
+                <View style={styles.pickerButtons}>
+                    {segments.map((segment, index) => (
+                        <View style={styles.pickerButton} key={index}>
                             <Button
                                 title={_pickerText(segment.week, segment.day)}
                                 className="picker-Button"
-                                key={index}
                                 onPress={() => updateSegment(index - currentSegment)}
                             />
-                        ))}
-                    </View>
+                        </View>
+                    ))}
                 </View>
-            </View>
+
         </View>
     );
 }

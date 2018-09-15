@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {Button, StyleSheet, View} from 'react-native';
+import styles from "../style";
 
 // import './Navigation.css';
 
@@ -29,13 +30,19 @@ const Navigation = ({week, day, triggerNavigation, showModal}) => {
     }
 
     return (
-        <View>
+        <View style={styles.navigationButtons}>
             {!(week === 1 && day === 1) && (
-                <Button title={_prevText()} className="nav-Button" onPress={handlePrevious} />
+                <View style={styles.navigationButton}>
+                    <Button title={_prevText()} onPress={handlePrevious} />
+                </View>
             )}
-            <Button title="..." className="nav-Button" onPress={showModal} />
+            <View style={styles.navigationButton}>
+                <Button title="..." color="darkgray" onPress={showModal} />
+            </View>
             {!(week === 9 && day === 3) && (
-                <Button title={_nextText()} className="nav-Button" onPress={handleNext} />
+                <View style={styles.navigationButton}>
+                    <Button title={_nextText()} onPress={handleNext} />
+                </View>
             )}
         </View>
     );

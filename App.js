@@ -10,6 +10,8 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {SEGMENTS} from './data/segments';
 import ding from './data/265012__sethlind__toaster-oven-ding.mp3';
 
+import styles from './style'
+
 export default class App extends React.Component {
     constructor(props) {
         super(props);
@@ -73,53 +75,7 @@ export default class App extends React.Component {
         const segment = SEGMENTS[this.state.segment];
 
         return (
-            <View className="main">
-                <View className="header">
-                    <Text className="main-header">Week {segment.week}</Text>
-                    <Text className="main-header gray">Day {segment.day}</Text>
-                </View>
-
-                <View className="interval-timer">
-                    <Text className="interval-text gray">{this.getIntervalType()}</Text>
-                    <Timer
-                        intervals={segment.intervals}
-                        updateInterval={this.updateInterval}
-                        segment={this.state.segment}
-                        play={this.state.play}
-                    />
-                </View>
-
-                <View className="total-timer">
-                    <Text className="sub-header">Total Time</Text>
-                    <Timer
-                        intervals={[segment.intervals.reduce((prev, curr) => prev + curr)]}
-                        updateInterval={() => ''}
-                        segment={this.state.segment}
-                        play={this.state.play}
-                    />
-                </View>
-
-                <View className="play-pause">
-                    <Button title={this.state.play ? 'Pause' : 'Play'} className="play-Button" onPress={this.playPause} />
-                </View>
-
-                <View className="intervals">
-                    <Text className="sub-header">Intervals</Text>
-                    <IntervalTracker
-                        current={this.state.interval}
-                        total={segment.intervals.length - 2}
-                    />
-                </View>
-
-                <View className="navigation">
-                    <Navigation
-                        week={segment.week}
-                        day={segment.day}
-                        triggerNavigation={this.updateSegment}
-                        showModal={this.showModal}
-                    />
-                </View>
-
+            <View style={styles.main}>
                 {this.state.showModal && (
                     <PickerModal
                         segments={SEGMENTS}
@@ -128,6 +84,57 @@ export default class App extends React.Component {
                         hideModal={this.hideModal}
                     />
                 )}
+
+                <View style={styles.header}>
+                    <Text style={styles.headerText}>Week {segment.week}, Day {segment.day}</Text>
+                </View>
+
+                <View style={styles.interval}>
+                    <Text style={styles.intervalText}>{this.getIntervalType()}</Text>
+                    <Timer
+                        intervals={segment.intervals}
+                        updateInterval={this.updateInterval}
+                        segment={this.state.segment}
+                        play={this.state.play}
+                        scale={1}
+                    />
+                </View>
+
+                <View style={styles.play}>
+                    <Button title={this.state.play ? 'Pause' : 'Start'}  color="green" onPress={this.playPause} />
+                </View>
+
+                <View style={styles.flexed}>
+
+                    <View style={styles.flex1}>
+                        <Text style={styles.subHeader}>Total Time</Text>
+                        <Timer
+                            intervals={[segment.intervals.reduce((prev, curr) => prev + curr)]}
+                            updateInterval={() => ''}
+                            segment={this.state.segment}
+                            play={this.state.play}
+                            scale={0.4}
+                        />
+                    </View>
+
+                    <View style={styles.flex1}>
+                        <Text style={styles.subHeader}>Intervals</Text>
+                        <IntervalTracker
+                            current={this.state.interval}
+                            total={segment.intervals.length - 2}
+                        />
+                    </View>
+
+                </View>
+
+                <View style={styles.navigation}>
+                    <Navigation
+                        week={segment.week}
+                        day={segment.day}
+                        triggerNavigation={this.updateSegment}
+                        showModal={this.showModal}
+                    />
+                </View>
             </View>
         );
 
@@ -145,24 +152,13 @@ export default class App extends React.Component {
     }
 
     async _playSound(theSound) {
-
         const soundObject = new Expo.Audio.Sound();
 
         try {
-        await soundObject.loadAsync(theSound);
-        await soundObject.playAsync();
-        // Your sound is playing!
+            await soundObject.loadAsync(theSound);
+            await soundObject.playAsync();
         } catch (error) {
             // An error occurred!
         }
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {StyleSheet, Text, View} from 'react-native';
-
-// import './Timer.css';
+import styles from '../style'
 
 // Yes, this is basically the same thing as the stateful component example from: https://facebook.github.io/react/
 class Timer extends React.Component {
@@ -84,12 +83,17 @@ class Timer extends React.Component {
         );
     }
 
+    _fontSize(scale) {
+        var size = 90 * this.props.scale * scale;
+        return {fontSize: size};
+    }
+
     render() {
         return (
-            <View>
-                <Text className="current-time">{this.format(this.state.seconds)}</Text>
-                <Text className="total-time">
-                    /{this.format(this.props.intervals[this.state.intervalIndex])}
+            <View style={styles.timer}>
+                <Text style={this._fontSize(1)}>{this.format(this.state.seconds)}</Text>
+                <Text style={this._fontSize(0.4)}>
+                    / {this.format(this.props.intervals[this.state.intervalIndex])}
                 </Text>
             </View>
         );
@@ -100,7 +104,8 @@ Timer.propTypes = {
     intervals: PropTypes.array.isRequired,
     updateInterval: PropTypes.func.isRequired,
     segment: PropTypes.number.isRequired,
-    play: PropTypes.bool.isRequired
+    play: PropTypes.bool.isRequired,
+    scale: PropTypes.number.isRequired,
 };
 
 export default Timer;
