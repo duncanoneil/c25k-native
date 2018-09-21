@@ -6,6 +6,7 @@ import IntervalTracker from './components/IntervalTracker';
 import PickerModal from './components/PickerModal';
 
 import {Button, StyleSheet, Text, View} from 'react-native';
+import { KeepAwake } from 'expo';
 
 import {SEGMENTS} from './data/segments';
 import speedUp from './data/speed-up.mp3';
@@ -88,6 +89,7 @@ export default class App extends React.Component {
 
         return (
             <View style={styles.main}>
+                <KeepAwake />
                 {this.state.showModal && (
                     <PickerModal
                         segments={SEGMENTS}
