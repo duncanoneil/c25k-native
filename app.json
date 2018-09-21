@@ -1,5 +1,24 @@
 {
   "expo": {
-    "sdkVersion": "27.0.0"
+    "name": "c25k",
+    "icon": "./data/icon.png",
+    "version": "1.0.0",
+    "slug": "c25k-native",
+    "sdkVersion": "27.0.0",
+    "ios": {
+      "bundleIdentifier": "com.duncanoneil.c25knative"
+    },
+    "android": {
+      "package": "com.duncanoneil.c25knative",
+      "permissions": [
+        "WAKE_LOCK"
+      ]
+    },
+    "githubUrl": "https://github.com/duncanoneil/c25k-native",
+    "orientation": "portrait",
+    "splash": {
+      "image": "./data/icon.png",
+      "resizeMode": "cover"
+    }
   }
 }
