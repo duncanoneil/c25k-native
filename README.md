@@ -8,5 +8,8 @@ A simple app to keep track of intervals for the Couch to 5K program. Timings gat
 
 * Counters for interval time, total time, and interval count
 * Visual tracking of when to run or walk
-* Ding to signify interval end
+* Different tones to signify interval end
+    * Ascending scale for the start of a run interval
+    * Descending scale for the start of a walk interval
+    * "Tada" for completing the session
 * Jump to any week
